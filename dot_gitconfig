@@ -1,0 +1,35 @@
+#1" This is Git's per-user configuration file.
+[alias]
+    d = diff
+    dc = diff -cached
+    a = add
+    c = commit
+    s = status
+ 
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    side-by-side = true
+    true-color = always
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+
+[merge]
+    conflictstyle = zdiff3
+
+[diff]
+    colorMoved = default
+  
+[user]
+    name = MoYuM
+    email = hanbaochang12138@gmail.com
+  
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
