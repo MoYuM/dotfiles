@@ -7,5 +7,7 @@ alias ls "ls -p -G"
 alias la "ls -A"
 alias ll "ls -l"
 
+set -gx XDG_CONFIG_HOME $HOME/.config
+
 fish_add_path $HOME/.local/bin
 fish_add_path /opt/homebrew/bin
