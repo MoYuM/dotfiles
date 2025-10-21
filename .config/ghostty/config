@@ -1,0 +1,4 @@
+theme = tokyonight
+font-thicken = true
+custom-shader = "./cursor_blaze.glsl"
+font-family = "JetBrainsMono Nerd Font Mono"
