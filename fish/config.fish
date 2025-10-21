@@ -3,9 +3,7 @@ if status is-interactive
     starship init fish | source
 end
 
-alias ls "ls -p -G"
-alias la "ls -A"
-alias ll "ls -l"
+alias lg "lazygit"
 
 set -gx XDG_CONFIG_HOME $HOME/.config
 
