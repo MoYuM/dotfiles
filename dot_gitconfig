@@ -1,0 +1,16 @@
+[core]
+	hooksPath = /Users/moyum/.git-hooks
+	quotepath = false
+[user]
+	name = MoYuM
+	email = hanbaochang12138@gmail.com
+[alias]
+	c = commit
+	d = diff
+	a = add
+	s = status
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
