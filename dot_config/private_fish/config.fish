@@ -4,6 +4,7 @@ if status is-interactive
 end
 
 alias lg "lazygit"
+alias ca "cursor-agent"
 
 set -gx XDG_CONFIG_HOME $HOME/.config
 
