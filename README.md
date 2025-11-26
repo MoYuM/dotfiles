@@ -18,3 +18,19 @@ chezmoi apply
 chezmoi update
 chezmoi apply
 ```
+
+## 常用命令
+
+```base
+# 更新 fish config
+source ~/.config/fish/config.fish
+
+# 整理 brewfile
+chezmoi cd
+brew bundle dump
+
+# 清理其他 brew 包
+brew bundle cleanup
+# 使用 --force 确定清理
+brew bundle cleanup --force
+```
