@@ -25,6 +25,10 @@ chezmoi apply
 # 更新 fish config
 source ~/.config/fish/config.fish
 
+# 根据 brewfile 安装包
+chezmoi cd
+brew bundle install
+
 # 整理 brewfile
 chezmoi cd
 brew bundle dump
