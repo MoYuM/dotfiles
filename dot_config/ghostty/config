@@ -1,4 +1,15 @@
-theme = tokyonight
 font-thicken = true
 custom-shader = "./custom_shaders/cursor_wrap.glsl"
 font-family = "JetBrainsMono Nerd Font Mono"
+notify-on-command-finish = always
+notify-on-command-finish-action = no-bell,notify
+notify-on-command-finish-after = 30s
+keybind = resize/arrow_up=resize_split:up,10
+keybind = resize/arrow_down=resize_split:down,10
+keybind = resize/arrow_left=resize_split:left,10
+keybind = resize/arrow_right=resize_split:right,10
+keybind = resize/escape=deactivate_key_table
+keybind = resize/catch_all=ignore
+
+keybind = ctrl+a=activate_key_table:resize
+
