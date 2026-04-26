@@ -11,5 +11,5 @@ keybind = resize/arrow_right=resize_split:right,10
 keybind = resize/escape=deactivate_key_table
 keybind = resize/catch_all=ignore
 
-keybind = ctrl+a=activate_key_table:resize
+keybind = cmd+r=activate_key_table:resize
 
