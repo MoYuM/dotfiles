@@ -22,6 +22,8 @@ brew "go"
 brew "golang-migrate"
 # Simple terminal UI for git commands
 brew "lazygit"
+# Fast and powerful Git hooks manager for any type of projects
+brew "lefthook"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Manage multiple Node.js versions
