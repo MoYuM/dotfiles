@@ -3,9 +3,11 @@
 # 并用 refresh-client -S 强制重画状态栏（绕开 tmux status-interval 最低 1 秒的限制）。
 # tab 格式里引用 #{@claude_icon} 变量渲染，不走 #() 缓存。
 #
-# 生命周期：state 为 running/needs-input 时持续动画；done 显示 10 秒后自动清理退出；
-# state 被清（SessionEnd）时清屏退出。每个 window 只允许一个实例：启动时把自己的
-# PID 写进 @claude_ticker_pid，每个 tick 校验，被新实例顶替则自行退出。
+# 生命周期：state 为 running/needs-input 时持续动画；done 画一个静态 ✓ 后立即退出，
+# ✓ 常驻直到用户切进该 window（由 tmux hook 调 clear-done.sh 清除）；
+# state 被清（SessionEnd）时清屏退出。
+# 每个 window 只允许一个实例：启动时把自己的 PID 写进 @claude_ticker_pid，
+# 每个 tick 校验，被新实例顶替则自行退出。
 
 WIN="${1:-}"
 [ -n "$WIN" ] || exit 0
@@ -17,7 +19,6 @@ tmux set-option -w -t "$WIN" "@claude_ticker_pid" "$$" 2>/dev/null || exit 0
 FRAMES=(∙ ✻ ✼ ✶ ✲ ✢)
 TICK=0
 MAX_TICKS=96000   # 约 4 小时（按 150ms/tick），防泄漏兜底
-DONE_TTL=10
 
 refresh_all() {
   while read -r C; do
@@ -67,14 +68,11 @@ while :; do
       SLEEP=0.5
       ;;
     done)
-      if (( $(date +%s) - TS < DONE_TTL )); then
-        draw " #[fg=#9ece6a]✓"
-        SLEEP=0.5
-      else
-        tmux set-option -w -t "$WIN" -u "@claude_state" 2>/dev/null
-        tmux set-option -w -t "$WIN" -u "@claude_state_ts" 2>/dev/null
-        cleanup_exit
-      fi
+      # 画静态 ✓ 后退出。icon 常驻，直到用户切入该 window 时由 tmux hook
+      # 调 clear-done.sh 清除（或新 prompt 把状态拉回 running）。
+      draw " #[fg=#9ece6a]✓"
+      tmux set-option -w -t "$WIN" -u "@claude_ticker_pid" 2>/dev/null
+      exit 0
       ;;
     *)
       cleanup_exit
