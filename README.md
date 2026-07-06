@@ -46,8 +46,8 @@ brew bundle cleanup --force
 `.chezmoiscripts/run_onchange_after_install-claude-tmux-status-hooks.sh.tmpl` 把对应的 5 个 hook
 增量合并进 `~/.claude/settings.json`（不覆盖其他字段或已有 hook）。
 
-## 依赖 / 新机器手动步骤
+## 依赖
 
-- `jq`：hook 合并脚本依赖，跑 `brew bundle install` 装好；没装的话该 apply 步骤会报错，装完重新 `chezmoi apply` 一次即可（脚本失败不会被当成已执行，会自动重试）
-- `tpm`：不归 chezmoi 管，需手动 `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`，再进 tmux 按 `prefix + I` 装插件
-- 终端需开启真彩色（truecolor），否则 tmux 的 Tokyo Night 配色会显示不对
+- `jq`
+- `tmux`
+- `tpm`
