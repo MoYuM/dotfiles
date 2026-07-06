@@ -45,7 +45,7 @@ brew bundle cleanup --force
 运行状态（跑动图标 / 等待输入 / 完成 ✓）。`chezmoi apply` 会自动做完以下事：
 
 - 落地 `~/.config/tmux/tmux.conf`、`~/.config/claude-tmux-status/{hook.sh,ticker.sh}`
-- 通过 `.chezmoiscripts/run_onchange_install-claude-tmux-status-hooks.sh.tmpl` 把对应的
+- 通过 `.chezmoiscripts/run_onchange_after_install-claude-tmux-status-hooks.sh.tmpl` 把对应的
   5 个 hook（`UserPromptSubmit`/`PreToolUse`/`Notification`/`Stop`/`SessionEnd`）**增量合并**进
   `~/.claude/settings.json`（用 jq，只新增缺失的 hook，不覆盖该文件里其他字段或已有的 hook）
 
