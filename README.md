@@ -42,19 +42,12 @@ brew bundle cleanup --force
 ## tmux tab 显示 Claude Code 状态
 
 `dot_config/tmux/tmux.conf` + `dot_config/claude-tmux-status/` 实现了 tmux tab 上显示 Claude Code
-运行状态（跑动图标 / 等待输入 / 完成 ✓）。`chezmoi apply` 会自动做完以下事：
+运行状态（跑动图标 / 等待输入 / 完成 ✓）。`chezmoi apply` 会自动落地配置和脚本，并通过
+`.chezmoiscripts/run_onchange_after_install-claude-tmux-status-hooks.sh.tmpl` 把对应的 5 个 hook
+增量合并进 `~/.claude/settings.json`（不覆盖其他字段或已有 hook）。
 
-- 落地 `~/.config/tmux/tmux.conf`、`~/.config/claude-tmux-status/{hook.sh,ticker.sh}`
-- 通过 `.chezmoiscripts/run_onchange_after_install-claude-tmux-status-hooks.sh.tmpl` 把对应的
-  5 个 hook（`UserPromptSubmit`/`PreToolUse`/`Notification`/`Stop`/`SessionEnd`）**增量合并**进
-  `~/.claude/settings.json`（用 jq，只新增缺失的 hook，不覆盖该文件里其他字段或已有的 hook）
+## 依赖 / 新机器手动步骤
 
-新机器上唯一还需要手动做的：
-
-```bash
-# 装 tpm（插件管理器本身不归 chezmoi 管，是手动 clone 的）
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-# 进 tmux 后按 prefix + I 装 tmux.conf 里声明的插件（如 tmux-which-key）
-```
-
-以及确认终端开启了真彩色（truecolor）支持，否则 Tokyo Night 配色会显示不对。
+- `jq`：hook 合并脚本依赖，跑 `brew bundle install` 装好；没装的话该 apply 步骤会报错，装完重新 `chezmoi apply` 一次即可（脚本失败不会被当成已执行，会自动重试）
+- `tpm`：不归 chezmoi 管，需手动 `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`，再进 tmux 按 `prefix + I` 装插件
+- 终端需开启真彩色（truecolor），否则 tmux 的 Tokyo Night 配色会显示不对

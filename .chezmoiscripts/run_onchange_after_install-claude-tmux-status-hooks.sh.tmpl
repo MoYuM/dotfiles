@@ -7,8 +7,8 @@ set -euo pipefail
 SETTINGS="$HOME/.claude/settings.json"
 HOOK="$HOME/.config/claude-tmux-status/hook.sh"
 
-command -v jq >/dev/null 2>&1 || { echo "claude-tmux-status: 需要 jq（brew bundle 安装），跳过 hook 注入" >&2; exit 0; }
-[ -x "$HOOK" ] || exit 0
+command -v jq >/dev/null 2>&1 || { echo "claude-tmux-status: 需要 jq（brew bundle install 装好后重新 chezmoi apply 一次）" >&2; exit 1; }
+[ -x "$HOOK" ] || { echo "claude-tmux-status: $HOOK 不存在，重新 chezmoi apply 一次" >&2; exit 1; }
 
 mkdir -p "$(dirname "$SETTINGS")"
 [ -f "$SETTINGS" ] || echo '{}' >"$SETTINGS"
