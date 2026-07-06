@@ -25,6 +25,8 @@ brew "golang-migrate"
 brew "hurl"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
 # Simple terminal UI for git commands
 brew "lazygit"
 # Fast and powerful Git hooks manager for any type of projects

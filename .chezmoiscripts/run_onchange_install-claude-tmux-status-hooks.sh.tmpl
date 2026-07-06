@@ -1,0 +1,32 @@
+#!/bin/bash
+# hook.sh hash: {{ include "dot_config/claude-tmux-status/executable_hook.sh" | sha256sum }}
+# 把 claude-tmux-status 的 5 个 hook 合并进 ~/.claude/settings.json（只增量添加，不touch 其他字段/已有 hook）。
+# hook.sh 内容变化时（上面的 hash 注释跟着变）本脚本会被 chezmoi 重新触发。
+set -euo pipefail
+
+SETTINGS="$HOME/.claude/settings.json"
+HOOK="$HOME/.config/claude-tmux-status/hook.sh"
+
+command -v jq >/dev/null 2>&1 || { echo "claude-tmux-status: 需要 jq（brew bundle 安装），跳过 hook 注入" >&2; exit 0; }
+[ -x "$HOOK" ] || exit 0
+
+mkdir -p "$(dirname "$SETTINGS")"
+[ -f "$SETTINGS" ] || echo '{}' >"$SETTINGS"
+
+TMP="$(mktemp)"
+jq --arg hook "$HOOK" '
+  def add_hook($event; $matcher; $cmd):
+    (.hooks[$event] // []) as $existing
+    | if ($existing | any(.hooks[]?.command == $cmd))
+      then .
+      else .hooks[$event] = $existing + [
+        ({hooks: [{type: "command", command: $cmd}]}
+         + (if $matcher then {matcher: $matcher} else {} end))
+      ]
+      end;
+  add_hook("UserPromptSubmit"; null; "\($hook) UserPromptSubmit")
+  | add_hook("PreToolUse"; null; "\($hook) PreToolUse")
+  | add_hook("Notification"; "permission_prompt"; "\($hook) Notification")
+  | add_hook("Stop"; null; "\($hook) Stop")
+  | add_hook("SessionEnd"; null; "\($hook) SessionEnd")
+' "$SETTINGS" >"$TMP" && mv "$TMP" "$SETTINGS"
