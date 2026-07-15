@@ -3,6 +3,8 @@ if status is-interactive
     starship init fish | source
 end
 
+zoxide init fish | source
+
 alias lg "lazygit"
 alias ca "cursor-agent"
 alias cc "claude --dangerously-skip-permissions"
