@@ -1,0 +1,22 @@
+onboarding = false
+[ui.toast]
+delivery = "herdr"
+
+[ui]
+show_agent_labels_on_pane_borders = false
+agent_panel_sort = "spaces"
+
+[experimental]
+pane_history = false
+switch_ascii_input_source_in_prefix = false
+
+[theme]
+name = "catppuccin"
+auto_switch = false
+
+[keys]
+previous_workspace = ["cmd+ctrl+shift+alt+k"]
+next_workspace = ["cmd+ctrl+shift+alt+j"]
+new_workspace = ["prefix+shift+n", "cmd+ctrl+shift+alt+n"]
+cycle_pane_previous = ["prefix+tab", "cmd+ctrl+shift+alt+h"]
+cycle_pane_next = ["prefix+tab", "cmd+ctrl+shift+alt+l"]
