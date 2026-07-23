@@ -18,5 +18,5 @@ auto_switch = false
 previous_workspace = ["cmd+ctrl+shift+alt+k"]
 next_workspace = ["cmd+ctrl+shift+alt+j"]
 new_workspace = ["prefix+shift+n", "cmd+ctrl+shift+alt+n"]
-cycle_pane_previous = ["prefix+tab", "cmd+ctrl+shift+alt+h"]
-cycle_pane_next = ["prefix+tab", "cmd+ctrl+shift+alt+l"]
+cycle_pane_previous = ["cmd+ctrl+shift+alt+h"]
+cycle_pane_next = ["cmd+ctrl+shift+alt+l"]
